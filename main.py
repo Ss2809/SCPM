@@ -4,9 +4,11 @@ import matplotlib.pyplot as plt
 import joblib
 from sklearn.ensemble import RandomForestRegressor
 
-# Step 1: Download Stock Data from yfinance
+
 stock_symbol = input("Enter the stock symbol (e.g., AAPL, MSFT): ")
-data = yf.download(stock_symbol, start="2020-01-01", end="2025-04-12")
+data = yf.download(stock_symbol, period="5y", interval="1d")
+
+
 print(data)
 
 

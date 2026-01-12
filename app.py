@@ -19,8 +19,10 @@ def predict():
     stock_symbol = request.form['stock_symbol'].upper()
 
     try:
-        
-        df = yf.download(stock_symbol, start="2020-01-01", end="2025-04-28")
+        #df = yf.download(stock_symbol, period="5y", interval="1d")
+
+        df = yf.download(stock_symbol, period="5y", interval="1d")
+
         prices = df['Close'].dropna().values
 
         if len(prices) < 101:
@@ -51,7 +53,8 @@ def predict():
 
         
         future_dates = []
-        last_date = df.index[-1]  
+        last_date = df.index[-1].to_pydatetime()
+  
         while len(future_dates) < 5:
             last_date += timedelta(days=1)
             if last_date.weekday() < 5: 
