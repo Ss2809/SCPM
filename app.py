@@ -19,7 +19,7 @@ def predict():
     stock_symbol = request.form['stock_symbol'].upper()
 
     try:
-        # Download data
+        
         df = yf.download(stock_symbol, start="2020-01-01", end="2025-04-28")
         prices = df['Close'].dropna().values
 
@@ -30,7 +30,7 @@ def predict():
 
         X, y = [], []
         for i in range(len(prices) - window_size):
-            X.append(prices[i:i + window_size].flatten())  # ✅ FLATTENED
+            X.append(prices[i:i + window_size].flatten())  
             y.append(prices[i + window_size])
 
         X = np.array(X)
@@ -42,35 +42,35 @@ def predict():
 
         # Predict next 5 days
         future_predictions = []
-        last_window = prices[-window_size:].flatten()  # ✅ Ensure 1D
+        last_window = prices[-window_size:].flatten() 
 
         for _ in range(5):
-            next_price = model.predict([last_window])[0]  # ✅ Wrap as 2D array
+            next_price = model.predict([last_window])[0]  
             future_predictions.append(next_price)
-            last_window = np.append(last_window[1:], next_price)  # Shift window
+            last_window = np.append(last_window[1:], next_price)  
 
-        # Prepare the dates for the next 5 days
+        
         future_dates = []
-        last_date = df.index[-1]  # Last known date
+        last_date = df.index[-1]  
         while len(future_dates) < 5:
             last_date += timedelta(days=1)
-            if last_date.weekday() < 5:  # Skip weekends
+            if last_date.weekday() < 5: 
                 future_dates.append(last_date)
 
         future_dates_str = [date.strftime('%d %b') for date in future_dates]
         prediction_text = "Predicted prices for the next 5 days: "
         prediction_text += ", ".join([f"{date} - ${price:.2f}" for date, price in zip(future_dates_str, future_predictions)])
 
-        # Plotting
-        dates = df.index[-len(prices):]  # Actual dates for historical prices
+       
+        dates = df.index[-len(prices):]  
         plt.figure(figsize=(10, 6))
         # Historical
         plt.plot(dates, prices, label='Actual Prices', color='blue')
-        # Model Fit (shifted to align with data)
+        
         model_fit_dates = dates[window_size:]
         model_fit_prices = model.predict(X)
         plt.plot(model_fit_dates, model_fit_prices, label='Model Fit', color='red')
-        # Future
+        
         plt.scatter(future_dates, future_predictions, label='Predicted Prices', color='green')
 
         plt.title(f'Random Forest 5-Day Forecast for {stock_symbol}')
@@ -79,7 +79,7 @@ def predict():
         plt.legend()
         plt.tight_layout()
 
-        # Save to memory
+       
         img = io.BytesIO()
         plt.savefig(img, format='png')
         img.seek(0)

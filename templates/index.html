@@ -1,58 +1,3 @@
-<!-- <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Stock Price Predictor</title>
-  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet'>
-  <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet'>
-  <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet'>
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet'>
-  <style>
-    body {
-      background-image: url("photo.jpg");
-      background-size: cover;  /* Ensures the background covers the entire screen */
-      background-position: center;  /* Keeps the image centered */
-      background-attachment: fixed;  /* Keeps the image fixed during scrolling */
-      font-family: 'Arimo', sans-serif;
-      text-align: center;
-      margin-top: 50px;
-      margin-bottom: 50px;  /* Adjust margin to ensure content isn't too close to edges */
-    }
-    .login {
-      background-color: rgba(255, 255, 255, 0.7); /* Adds a semi-transparent white background */
-      padding: 20px;
-      border-radius: 10px;
-      display: inline-block;
-    }
-    input, button {
-      padding: 10px;
-      margin: 10px;
-      font-size: 16px;
-      width: 80%; /* Makes inputs and buttons more responsive */
-    }
-    img {
-      margin-top: 20px;
-      max-width: 80%;
-      height: auto;
-    }
-  </style>
-</head>
-<body>
-  <div class="login">
-    <h1>Stock Price Prediction Model</h1>
-    <form action="{{ url_for('predict') }}" method="post">
-      <input type="text" name="stock_symbol" placeholder="Enter Stock Symbol (e.g., AAPL)" required />
-      <button type="submit">Predict</button>
-    </form>
-    
-    {% if prediction_text %}
-      <h2>{{ prediction_text }}</h2>
-      <img src="{{ url_for('static', filename='plot.png') }}" alt="Prediction Plot">
-    {% endif %}
-  </div>
-</body>
-</html> -->
-
 
 <!DOCTYPE html>
 <html>
@@ -65,15 +10,14 @@
   <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet'>
   <style>
     body {
-      /* background-color: #1e1e1e; */
-      /* background-image: url("photo.jpg"); */
+    
       
       background-image: url("/static/photo.jpg");
-      background-size: cover;           /* 📌 Makes the image cover the entire screen */
-      background-position: center;      /* 📌 Keeps it centered */
-      background-repeat: no-repeat;     /* 📌 Prevents tiling/repeating */
-      height: 100vh;                    /* 📌 Ensures body takes full viewport height */
-      margin: 0;                        /* 📌 Removes default margin */
+      background-size: cover;           
+      background-position: center;     
+      background-repeat: no-repeat;     
+      height: 100vh;                   
+      margin: 0;                        
       font-family: 'Arimo', sans-serif;
       text-align: center;
       color: white;
